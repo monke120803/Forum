@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Real-Time-Forum</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <link rel="stylesheet" href="../static/styles.css" />
+</head>
+
+<body onload="checkCookies()">
+  <!--------------------------- AUTHENTICATION --------------------------->
+  <!-- User Login Div -->
+  <div id="login" data-aos="fade-up" data-aos-delay="100">
+    <div class="auth-container">
+      <!-- Illustration & Text -->
+      <div class="left">
+        <img src="../static/img/auth/illustration.svg" alt="" />
+        <p class="title">Ready to Join<br />The Discussion?</p>
+        <p class="desc">Before you get started,<br />you’ll need to login.</p>
+      </div>
+      <!-- Login UI -->
+      <div class="right">
+        <lord-icon src="https://cdn.lordicon.com/rqqkvjqf.json" trigger="loop" delay="5000"
+          colors="primary:#f3f7ff,secondary:#d4dceb" style="width: 75px; height: 75px"> </lord-icon>
+        <p class="title">Welcome Back</p>
+        <p class="desc">Let’s get you logged in.</p>
+        <form action="javascript:void(0)" id="login-form">
+          <input type="text" name="username" id="username" placeholder="Email/Username" />
+          <input type="password" name="password" id="password" placeholder="Password" />
+          <button class="animate slide" type="submit" name="login" id="login">
+            <!-- <button onclick="showChat()" href="chat.html"> -->
+            Login
+          </button>
+          <p class="sign-up-text">Don’t have an account yet?</p>
+          <p class="sign-up-link" onclick="showRegistrationUI()">Sign Up</p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Registration Div -->
+  <div id="registration">
+    <div class="auth-container">
+      <!-- Illustration & Text -->
+      <div class="left">
+        <img src="../static/img/auth/illustration.svg" alt="" />
+        <p class="title">Ready to Join<br />The Discussion?</p>
+        <p class="desc">Before you get started,<br />you’ll need to login.</p>
+      </div>
+      <!-- Registration UI -->
+      <div class="right">
+        <lord-icon src="https://cdn.lordicon.com/rqqkvjqf.json" trigger="loop" delay="5000"
+          colors="primary:#f3f7ff,secondary:#d4dceb" style="width: 75px; height: 75px"> </lord-icon>
+        <p class="title">Registration</p>
+        <p class="desc">Let’s get you started.</p>
+
+        <form action="javascript:void(0)" id="sign-up-form">
+          <div class="name-wrapper">
+            <input type="text" name="firstName" id="firstName" placeholder="First Name" />
+            <input type="text" name="lastName" id="lastName" placeholder="Last Name" />
+          </div>
+          <input type="email" name="email" id="email" placeholder="Email Address" />
+          <div class="age-username-wrapper">
+            <input type="text" name="newusername" id="newusername" placeholder="Username" />
+            <input type="text" name="age" id="age" placeholder="Age" />
+          </div>
+          <div class="password-gender-wrapper">
+            <input type="password" name="newpassword" id="newpassword" placeholder="Password" />
+            <select id="gender" name="gender">
+              <option selected disabled hidden>Gender</option>
+              <option value="male" class="gender">Male</option>
+              <option value="female" class="gender">Female</option>
+            </select>
+          </div>
+          <div class="submit animate slide">
+            <button class="animate slide" type="submit" name="register" id="register">Register</button>
+          </div>
+        </form>
+        <p class="sign-up-text">Already have an account?</p>
+        <!-- https://stackoverflow.com/questions/63903272/activate-css-animation-when-visible -->
+        <p class="sign-up-link" onclick="showLoginUI()">Sign In</p>
+      </div>
+    </div>
+  </div>
+
+  <!--------------------------- HOME PAGE --------------------------->
+
+  <main>
+    <div class="nav">
+      <div class="logo-text-wrap">
+        <img src="../static/img/logo.svg" alt="" />
+        <p>Social Club</p>
+      </div>
+      <button id="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+      <!-- Left-section -->
+      <div class="left">
+        <!-- Mini profile -->
+        <div class="mini-profile">
+          <img src="../static/img/profile.png" width="40px" alt="" />
+          <div class="name-username-wrap">
+            <p class="name"></p>
+            <p class="username" id="username-id"></p>
+          </div>
+        </div>
+
+        <!-- Navigation menu -->
+        <div class="nav-menu">
+          <!-- Feed -->
+          <div class="nav-item" id="feed">
+            <img src="../static/img/nav-menu/home-icon.svg" alt="" />
+            <p>My Feed</p>
+          </div>
+          <!-- My profile -->
+          <div class="nav-item" id="my-profile">
+            <img src="../static/img/nav-menu/profile-icon.svg" alt="" />
+            <p>My Profile</p>
+          </div>
+          <!-- My posts -->
+          <div class="nav-item" id="my-posts">
+            <img src="../static/img/nav-menu/posts-icon.svg" alt="" />
+            <p>My Posts</p>
+          </div>
+          <!-- My likes -->
+          <div class="nav-item" id="my-likes">
+            <img src="../static/img/nav-menu/likes-icon.svg" alt="" />
+            <p>My Likes</p>
+          </div>
+          <!-- Settings -->
+          <div class="nav-item" id="settings">
+            <img src="../static/img/nav-menu/settings-icon.svg" alt="" />
+            <p>Settings</p>
+          </div>
+        </div>
+
+        <div class="title-bg">
+          <p>TRENDING</p>
+        </div>
+        <!-- Trending Topics -->
+        <div class="trending">
+          <div class="hashtag">
+            <p id="name">#Tech</p>
+            <div class="circle">
+              <p id="count">0</p>
+            </div>
+          </div>
+          <div class="hashtag">
+            <p id="name">#Food</p>
+            <div class="circle">
+              <p id="count">0</p>
+            </div>
+          </div>
+          <div class="hashtag">
+            <p id="name">#Art</p>
+            <div class="circle">
+              <p id="count">0</p>
+            </div>
+          </div>
+          <div class="hashtag">
+            <p id="name">#Sports</p>
+            <div class="circle">
+              <p id="count">0</p>
+            </div>
+          </div>
+          <div class="hashtag">
+            <p id="name">#Fitness</p>
+            <div class="circle">
+              <p id="count">0</p>
+            </div>
+          </div>
+          <div class="hashtag">
+            <p id="name">#Travel</p>
+            <div class="circle">
+              <p id="count">0</p>
+            </div>
+          </div>
+          <div class="hashtag">
+            <p id="name">#Misc</p>
+            <div class="circle">
+              <p id="count">0</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mid Section -->
+      <div class="mid">
+        <!-- Create A Post -->
+        <div class="create-post">
+          <img src="../static/img/profile.png" width="50px" alt="" />
+          <textarea id="postBody" name="postBody" rows="4" cols="50" placeholder="What’s new, Loretta?"
+            autofocus></textarea>
+          <div class="category-post-wrap">
+            <!-- radio button options -->
+            <div class="categories">
+              <div class="category" id="tech">#Tech</div>
+              <div class="category" id="food">#Food</div>
+              <div class="category" id="art">#Art</div>
+              <div class="category" id="sports">#Sports</div>
+              <div class="category" id="fitness">#Fitness</div>
+              <div class="category" id="travel">#Travel</div>
+              <div class="category" id="misc">#Misc</div>
+            </div>
+
+            <input id="submit" type="submit" value="Create Post" onclick="createPost();" />
+          </div>
+        </div>
+
+        <!-- Posts -->
+        <div class="posts-wrap">
+          <div class="post" id="2">
+            <div class="header">
+              <div class="author-category-wrap">
+                <img src="../static/img/profile.png" width="40px" />
+                <div class="name-timestamp-wrap">
+                  <p class="name">con</p>
+                  <p class="timestamp">Tuesday, 13 December, 2022 @ 21:25</p>
+                </div>
+              </div>
+              <!-- Category & Option Button -->
+              <div class="category-option-wrap">
+                <div class="category">#Sports</div>
+                <img src="../static/img/post-options.svg" />
+              </div>
+            </div>
+            <!-- Post Body -->
+            <div class="body">
+              <p>test</p>
+            </div>
+            <!-- Footer -->
+            <!-- Footer -->
+            <div class="footer">
+              <!-- Comment, Like, Dislike -->
+              <div class="actions">
+                <img src="../static/img/comments-icon.svg" />
+                <img src="../static/img/like-icon.svg" />
+                <img src="../static/img/dislike-icon.svg" />
+              </div>
+              <!-- Comment, Like & Dislike Statistics -->
+              <div class="stats">
+                <div class="stat-wrapper">
+                  <img src="../static/img/post/comments-icon.svg" width="17px" />
+                  <p>0</p>
+                </div>
+                <div class="stat-wrapper">
+                  <img src="../static/img/post/likes-icon.svg" width="15px" height="13px" />
+                  <p>0</p>
+                </div>
+                <div class="stat-wrapper">
+                  <img src="../static/img/post/dislikes-icon.svg" width="17px" />
+                  <p>0</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="comments">
+              <!-- Create A Comment -->
+              <div class="separator"></div>
+              <div class="create-comment-wrap">
+                <div class="comment-field-wrap">
+                  <!-- <img src="../static/img/profile.png" width="50px" id="composeCommentAuthor"> -->
+                  <div class="comment-field-submit-wrap">
+                    <input type="text" id="commentBody" placeholder="Write a comment..." />
+                    <div class="comment-btn">Comment</div>
+                  </div>
+                </div>
+              </div>
+              <div class="separator"></div>
+
+              <!-- Comments -->
+              <p class="title">Comments</p>
+              <div class="comments-wrap">
+                <div class="comment">
+                  <div class="author">Klaudia B</div>
+                  <img src="../static/img/profile.png" id="profile-picture" width="35px" />
+                  <div class="timestamp">5:29am</div>
+                  <div class="body">This is a comment. I love writing comments. Hello hello hello hello hello hello
+                    hello.</div>
+                </div>
+                <div class="comment">
+                  <div class="author">Connor H</div>
+                  <img src="../static/img/profile.png" id="profile-picture" width="35px" />
+                  <div class="timestamp">5:29am</div>
+                  <div class="body">
+                    Blah blah blah Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur harum quas
+                    beatae error ut aut inventore ipsa dolores fugiat, unde eaque quasi nulla culpa
+                    esse et quae magnam atque incidunt.
+                  </div>
+                </div>
+                <div class="comment">
+                  <div class="author">Mo Rubie</div>
+                  <img src="../static/img/profile.png" id="profile-picture" width="35px" />
+                  <div class="timestamp">5:29am</div>
+                  <div class="body">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente mollitia eum
+                    repudiandae aut. Quam nihil accusamus laboriosam veniam.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="post" id="1">
+            <div class="header">
+              <div class="author-category-wrap">
+                <img src="../static/img/profile.png" width="40px" />
+                <div class="name-timestamp-wrap">
+                  <p class="name">con</p>
+                  <p class="timestamp">Tuesday, 13 December, 2022 @ 19:44</p>
+                </div>
+              </div>
+              <!-- Category & Option Button -->
+              <div class="category">#Tech</div>
+            </div>
+            <!-- Post Body -->
+            <div class="body">
+              <p>hey</p>
+            </div>
+            <!-- Footer -->
+            <!-- Footer -->
+            <div class="footer">
+              <!-- Comment, Like, Dislike -->
+              <div class="actions">
+                <img src="../static/img/comments-icon.svg" />
+                <img src="../static/img/like-icon.svg" />
+                <img src="../static/img/dislike-icon.svg" />
+              </div>
+              <!-- Comment, Like & Dislike Statistics -->
+              <div class="stats">
+                <div class="stat-wrapper">
+                  <img src="../static/img/post/comments-icon.svg" width="17px" />
+                  <p>0</p>
+                </div>
+                <div class="stat-wrapper">
+                  <img src="../static/img/post/likes-icon.svg" width="15px" height="13px" />
+                  <p>0</p>
+                </div>
+                <div class="stat-wrapper">
+                  <img src="../static/img/post/dislikes-icon.svg" width="17px" />
+                  <p>0</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="comments">
+              <!-- Create A Comment -->
+              <div class="separator"></div>
+              <div class="create-comment-wrap">
+                <img src="../static/img/post/comments/chat-bubbles.svg" id="bubbles" />
+                <div class="comment-field-wrap">
+                  <img src="../static/img/profile.png" width="50px" id="composeCommentAuthor" />
+                  <div class="comment-field-submit-wrap">
+                    <input type="text" id="commentBody" placeholder="Start typing..." />
+                    <div class="comment-btn">Comment</div>
+                  </div>
+                </div>
+              </div>
+              <div class="separator"></div>
+
+              <!-- Comments -->
+              <p class="title">Comments</p>
+              <div class="comments-wrap">
+                <div class="comment">
+                  <div class="author">Loretta Turner</div>
+                  <img src="../static/img/profile.png" id="profile-picture" width="35px" />
+                  <div class="timestamp">5:29am</div>
+                  <div class="body">This is a comment. I love writing comments. Hello hello hello hello hello hello
+                    hello.</div>
+                </div>
+                <div class="comment">
+                  <div class="author">Loretta Turner</div>
+                  <img src="../static/img/profile.png" id="profile-picture" width="35px" />
+                  <div class="timestamp">5:29am</div>
+                  <div class="body">This is a comment. I love writing comments. Hello hello hello hello hello hello
+                    hello.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Left-section -->
+      <div class="right">
+        <div class="user-activity">
+          <div class="title-bg">
+            <p>User Activity</p>
+          </div>
+
+          <!-- Newest Users -->
+          <div id="recently-joined">
+            <!-- <div class="online"></div>
+            <div class="offline"></div> -->
+            <div class="user-prompt">
+              <div class="user">
+                <!-- <div class="online-status"></div>
+                <p></p> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="your-messages">
+          <!-- <div class="title-bg">
+              <p>Your Messages</p>
+            </div> -->
+
+          <div class="chat">
+            <!-- Trending Topics -->
+            <div id="chat" data-aos="fade-up" data-aos-anchor-placement="bottom-bottom">
+              <div class="profile-header">
+                <div class="img-name-wrap">
+                  <img src="../static/img/profile.png" width="37.5px" />
+                  <div class="status-wrap">
+                    <div class="online-status"></div>
+                  </div>
+                  <p id="chatReceiver" class="name">Full Name</p>
+                </div>
+                <img src="../static/img/chat/cross.svg" width="15px" onclick="toggleChat()" />
+              </div>
+              <div id="log"></div>
+              <form id="form">
+                <input type="text" id="msg" placeholder="Start typing..." size="64" />
+                <input type="submit" onclick="saveChat()" value="Send" />
+              </form>
+            </div>
+          </div>
+
+          <div class="chat-popup" id="myForm" onclick="toggleChat()">Messages</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!--------------------------- PRIVATE MESSAGING --------------------------->
+
+  <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+  <script src="../static/js/app.js"></script>
+  <script src="https://cdn.lordicon.com/pzdvqjsp.js"></script>
+  <script src="../static/js/authentication.js"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+</body>
+
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="parent">
+    <div class="child-1"></div>
+    <div class="child-2"></div>
+    <div class="child-3"></div>
+  </div>
+</body>
+
+</html>
